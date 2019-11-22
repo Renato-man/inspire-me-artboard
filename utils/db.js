@@ -6,7 +6,7 @@ var db = spicedPg(
 );
 
 module.exports.images = function() {
-    return db.query("SELECT * FROM images");
+    return db.query("SELECT * FROM images ORDER BY id DESC LIMIT 9");
 };
 
 module.exports.popup = function(id) {
@@ -29,6 +29,12 @@ module.exports.comments = function(username, comment_text, image_id) {
 
 module.exports.getComments = function(image_id) {
     return db.query("SELECT * FROM comments WHERE image_id = $1", [image_id]);
+};
+
+module.exports.loadImages = function(image_id) {
+    return db.query("SELECT * FROM images WHERE id < $1 ORDER BY id DESC", [
+        image_id
+    ]);
 };
 
 // ORDER BY desc LIMIT 10

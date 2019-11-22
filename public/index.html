@@ -36,7 +36,7 @@
             <h2>Capitalise! = {{name.toUpperCase()}}</h2>
             <h2 v-if="seen">Can you see me?</h2>
             <h2 v-else>I am the else....</h2> -->
-            <ul>
+            <ul class="ull">
                 <li v-for="image in images">
                     <img @click="getimageid(image.id)" class="imagesclass" v-bind:src="image.url" alt="">
                     <p>{{image.title}}</p>
@@ -55,7 +55,7 @@
 <!-- //actual rendering -->
     <script type="text/x-template" id="my-template">
         <div class="modul">
-            <div class="overlay"></div>
+            <div class="overlay" @click="close"></div>
             <div class="popup">
                 <div class="info">
                     <h3>{{image.title}}</h3>
@@ -70,8 +70,8 @@
                 <ul class="commentsss">
                     <li v-for="comment in comments">
                         <!-- <img @click="getComments(image_id)"  v-bind:src="comment_text" alt=""> -->
-                        <p>{{comment.username}}</p>
-                        <p>{{comment.comment_text}}</p>
+                        <h3>{{comment.username}}</h3> <br> <p>{{comment.comment_text}}</p>
+
                     </li>
                 </ul>
 
@@ -85,4 +85,3 @@
     <script src="/js/script.js"></script>
 </body>
 </html>
-<!-- @click="myFunction(animal.name)" -->

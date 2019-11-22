@@ -31,6 +31,7 @@ new Vue({
         axios.get("/images").then(function(response) {
             console.log("response from images: ", response.data);
             me.images = response.data;
+            me.loadMore();
         });
     },
     methods: {
@@ -68,7 +69,31 @@ new Vue({
             this.currentImage = f;
             console.log(f);
         },
-        unsetCurrentImage: function() {}
+        unsetCurrentImage: function() {
+            this.currentImage = null;
+        },
+        loadMore: function() {
+            var me = this;
+            window.onscroll = () => {
+                let bottomOfWindow =
+                    document.documentElement.scrollTop + window.innerHeight ===
+                    document.documentElement.offsetHeight;
+
+                console.log(document.documentElement.scrollTop);
+                let lastimageid = me.images[me.images.length - 1].id;
+
+                console.log("lastimageid...", lastimageid);
+                console.log("lastimageid...", lastimageid);
+                if (bottomOfWindow == true) {
+                    console.log("lastimageid....", lastimageid);
+                    console.log("we are in the infinite scrool!");
+                    axios.get("/loadMore/" + lastimageid).then(response => {
+                        console.log("response.data ", response.data);
+                        me.images = me.images.concat(response.data);
+                    });
+                }
+            };
+        }
     }
 });
 
@@ -110,6 +135,10 @@ Vue.component("image-modal", {
                 .catch(function(err) {
                     console.log("error in POST comment: ", err);
                 });
+        },
+        close: function() {
+            console.log("closing event");
+            this.$emit("close");
         }
 
         //     // axios post request

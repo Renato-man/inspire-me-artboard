@@ -109,4 +109,16 @@ app.get("/comments/:id", (req, res) => {
         });
 });
 
+app.get("/loadMore/:id", (req, res) => {
+    let lastimageId = req.params.id;
+    db.loadImages(lastimageId)
+        .then(results => {
+            let rows = results.rows;
+            res.json(rows);
+        })
+        .catch(err => {
+            console.log(err);
+        });
+});
+
 app.listen(8080, () => console.log("imageboard working"));
