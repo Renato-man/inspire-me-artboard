@@ -2,9 +2,87 @@
 <html>
 <head>
     <title></title>
+    <link rel="stylesheet" href="/css/styles.css">
+        <script src="/js/vue.js"></script>
 </head>
 <body>
-    <script src="/js/vue.js"></script>
+
+
+
+    <div class="player">
+        <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/249470753&color=%23ff5500&auto_play=true&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
+    </div>
+        <!-- <img class="background" src="/leaf2.jpg" alt=""> -->
+
+
+        <div id="main">
+            <div class="overlay"></div>
+            <div class="headingsDiv" >
+                <!-- <img   src="/leafheader.jpg" alt=""> -->
+                <h1 id="headingsOne">INSPIRE ME</h1>
+                <h2 id="headingsTwo">Art Board</h2>
+
+                <form class="formone">
+                    <input v-model="title" class="titles" type="text" name="title" value="" placeholder="Title">
+                    <input v-model="description" class="titles" type="text" name="description" value="" placeholder="Description">
+                    <input v-model="username" class="titles" type="text" name="username"  placeholder="Username">
+                    <input @change="handleChange" class="titles" type="file" name="file" value="" accept="image/*">
+                    <button @click.prevent.default="handleClick" id="upload" name="upload">UPLOAD</button>
+                </form>
+            </div>
+            <!-- <h2>The best cohort.. {{name}}</h2> -->
+            <!-- <h2>Maths! 2 * 2 = {{2 * 2}}</h2>
+            <h2>Capitalise! = {{"habanero".toUpperCase()}}</h2>
+            <h2>Capitalise! = {{name.toUpperCase()}}</h2>
+            <h2 v-if="seen">Can you see me?</h2>
+            <h2 v-else>I am the else....</h2> -->
+            <ul>
+                <li v-for="image in images">
+                    <img @click="getimageid(image.id)" class="imagesclass" v-bind:src="image.url" alt="">
+                    <p>{{image.title}}</p>
+                </li>
+            </ul>
+<!-- renders once whats below -->
+            <image-modal
+                v-if="currentImage"
+                v-bind:id="currentImage"
+                v-on:close="unsetCurrentImage"
+            ></image-modal>
+
+        </div>
+
+
+<!-- //actual rendering -->
+    <script type="text/x-template" id="my-template">
+        <div class="modul">
+            <div class="overlay"></div>
+            <div class="popup">
+                <div class="info">
+                    <h3>{{image.title}}</h3>
+                    <p>{{image.description}}</p>
+                </div>
+                <img class="popupimage" v-bind:src="image.url" alt="">
+                <form class="formtwo">
+                    <input v-model="comment"  id="comment" type="text" name="comment" value="" placeholder="Comment">
+                    <input v-model="username"  type="text" name="username"  placeholder="Username">
+                    <button @click.prevent.default="handleClickComment"  name="upload">POST</button>
+                </form>
+                <ul class="commentsss">
+                    <li v-for="comment in comments">
+                        <!-- <img @click="getComments(image_id)"  v-bind:src="comment_text" alt=""> -->
+                        <p>{{comment.username}}</p>
+                        <p>{{comment.comment_text}}</p>
+                    </li>
+                </ul>
+
+
+            </div>
+        </div>
+    </script>
+
+
     <script src="/js/axios.min.js"></script>
+    <script src="/js/script.js"></script>
 </body>
 </html>
+<!-- @click="myFunction(animal.name)" -->
